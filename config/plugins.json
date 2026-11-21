@@ -1,0 +1,7 @@
+{
+  "_comment": "Optional Claude Code plugins from the official marketplace. Unrelated to routing; installed only with --plugins or an interactive yes. The author's local GitKraken directory-marketplace is machine-specific and intentionally not exported.",
+  "plugins": [
+    { "id": "vercel@claude-plugins-official", "label": "Vercel (deploy/env/logs skills + MCP)" },
+    { "id": "resend@claude-plugins-official", "label": "Resend (email API skills)" }
+  ]
+}

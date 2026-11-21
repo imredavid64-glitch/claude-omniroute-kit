@@ -1,0 +1,22 @@
+{
+  "_comment": "Patch deep-merged onto the server's current /api/settings/compression, then PUT back. Deliberately conservative: 'lite' + session-dedup only. Lite's default tool-result truncation (2000 chars) is OFF because it silently chops Claude Code file reads; caveman rewrites user prompts (lossy) and OmniRoute's rtk engine overlaps with the RTK Bash hook, so both are OFF. Expect ~9% input-token savings, not 50-90%. Prior config is saved to compression-settings.bak-pre-kit.json.",
+  "patch": {
+    "enabled": true,
+    "defaultMode": "lite",
+    "preserveSystemPrompt": true,
+    "preserveSystemPromptMode": "always",
+    "lite": { "compressToolResults": false },
+    "engines": {
+      "session-dedup": { "enabled": true },
+      "lite": { "enabled": true },
+      "caveman": { "enabled": false },
+      "rtk": { "enabled": false }
+    },
+    "cavemanConfig": { "enabled": false },
+    "rtkConfig": { "enabled": false }
+  },
+  "expect": {
+    "enabled": true,
+    "defaultMode": "lite"
+  }
+}

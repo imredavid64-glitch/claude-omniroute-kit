@@ -1,0 +1,54 @@
+{
+  "_comment": "Priority-failover combos Claude Code points at. Order = priority. The installer keeps only members whose provider is connected AND that pass a real tool_use probe (Claude Code needs tool calls; a text-only fallback stalls the agent). 'keyless' members are probed even without an explicit connection. Free tiers rot fast: re-run `node installer/install.mjs --only combos` to re-probe and rebuild.",
+  "combos": [
+    {
+      "name": "unlimited",
+      "role": "main",
+      "settingsEnv": ["ANTHROPIC_MODEL"],
+      "strategy": "priority",
+      "members": [
+        { "model": "cc/claude-sonnet-5-5", "provider": "claude", "note": "Claude subscription (OAuth)" },
+        { "model": "cx/gpt-5.6-terra", "provider": "codex", "note": "ChatGPT/Codex subscription (OAuth)" },
+        { "model": "antigravity/claude-sonnet-4-6", "provider": "antigravity", "note": "Google Antigravity (OAuth)" },
+        { "model": "cx/gpt-5.6-luna", "provider": "codex" },
+        { "model": "nvidia/nvidia/nemotron-3-ultra-550b-a55b", "provider": "nvidia", "note": "NVIDIA NIM free key" },
+        { "model": "groq/openai/gpt-oss-120b", "provider": "groq", "note": "Groq free key" },
+        { "model": "agy/gemini-3.8-flash-high", "provider": "agy", "note": "Antigravity CLI (OAuth)" },
+        { "model": "nvidia/poolside/laguna-xs-2.1", "provider": "nvidia", "note": "coder model" },
+        { "model": "groq/qwen/qwen3.8-27b", "provider": "groq" },
+        { "model": "nvidia/nvidia/nemotron-3.5-super-vl-120b-a12b", "provider": "nvidia" },
+        { "model": "openrouter/cohere/north-mini-code:free", "provider": "openrouter", "note": "~50 req/day on :free models" },
+        { "model": "agy/gemini-3.8-flash-medium", "provider": "agy" },
+        { "model": "nvidia/google/gemma-4-31b-it", "provider": "nvidia" },
+        { "model": "groq/openai/gpt-oss-20b", "provider": "groq" },
+        { "model": "openrouter/inclusionai/ling-3.2-flash:free", "provider": "openrouter" },
+        { "model": "ddgw/gpt-5.6-luna", "provider": "duckduckgo-web", "keyless": true, "note": "no account needed" },
+        { "model": "ddgw/claude-haiku-4-5", "provider": "duckduckgo-web", "keyless": true },
+        { "model": "ddgw/tinfoil/gpt-oss-120b", "provider": "duckduckgo-web", "keyless": true },
+        { "model": "ddgw/gpt-5.4-mini", "provider": "duckduckgo-web", "keyless": true },
+        { "model": "kg/nvidia/nemotron-3-ultra-550b-a55b:free", "provider": "kilo-gateway", "note": "anonymous tier; 401s under parallel bursts, keep late" },
+        { "model": "kg/cohere/north-mini-code:free", "provider": "kilo-gateway" },
+        { "model": "kg/kilo-auto/free", "provider": "kilo-gateway" },
+        { "model": "gh/auto", "provider": "github", "note": "Copilot; only gh/auto works, and it is flaky" }
+      ]
+    },
+    {
+      "name": "unlimited-fast",
+      "role": "small-fast",
+      "settingsEnv": ["ANTHROPIC_SMALL_FAST_MODEL", "ANTHROPIC_DEFAULT_HAIKU_MODEL"],
+      "strategy": "priority",
+      "members": [
+        { "model": "cc/claude-haiku-5-5", "provider": "claude" },
+        { "model": "groq/openai/gpt-oss-120b", "provider": "groq" },
+        { "model": "agy/gemini-3.8-flash-high", "provider": "agy" },
+        { "model": "ddgw/claude-haiku-4-5", "provider": "duckduckgo-web", "keyless": true },
+        { "model": "nvidia/nvidia/nemotron-3-ultra-550b-a55b", "provider": "nvidia" },
+        { "model": "groq/qwen/qwen3.8-27b", "provider": "groq" },
+        { "model": "ddgw/gpt-5.4-mini", "provider": "duckduckgo-web", "keyless": true },
+        { "model": "openrouter/cohere/north-mini-code:free", "provider": "openrouter" },
+        { "model": "kg/cohere/north-mini-code:free", "provider": "kilo-gateway" },
+        { "model": "kg/kilo-auto/free", "provider": "kilo-gateway" }
+      ]
+    }
+  ]
+}

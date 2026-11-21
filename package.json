@@ -1,0 +1,14 @@
+{
+  "name": "claude-omniroute-kit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portable setup for Claude Code behind a local OmniRoute gateway: provider failover, token optimization (RTK + compression), secure defaults.",
+  "type": "module",
+  "engines": { "node": ">=22.22.2 <23 || >=24.0.0 <27" },
+  "scripts": {
+    "setup": "node installer/install.mjs",
+    "doctor": "node installer/doctor.mjs",
+    "scan": "node tools/scan-secrets.mjs",
+    "test": "node --test"
+  }
+}

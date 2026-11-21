@@ -1,0 +1,71 @@
+{
+  "_comment": "Everything here is a recipe, not a credential. Keyless providers are connected automatically. API keys are read from the named env var or prompted for (Enter skips). OAuth providers are opt-in and default to NO. Excluded on purpose: kimi-coding (account bans), sambanova/huggingface/cerebras/vercel-ai-gateway (need a payment card even for the free tier).",
+  "keyless": [
+    {
+      "id": "duckduckgo-web",
+      "alias": "ddgw",
+      "mode": "noauth",
+      "label": "DuckDuckGo AI Chat",
+      "note": "No account. Serves claude-haiku / gpt mini class models."
+    },
+    {
+      "id": "kilo-gateway",
+      "alias": "kg",
+      "mode": "dummy-credential",
+      "credential": "anonymous",
+      "label": "Kilo Gateway (anonymous free tier)",
+      "note": "Placeholder credential 'anonymous' is Kilo's documented anonymous access, not a secret."
+    }
+  ],
+  "apiKey": [
+    {
+      "id": "groq",
+      "env": "GROQ_API_KEY",
+      "label": "Groq",
+      "url": "https://console.groq.com/keys",
+      "free": "free tier, no card"
+    },
+    {
+      "id": "nvidia",
+      "env": "NVIDIA_API_KEY",
+      "label": "NVIDIA NIM",
+      "url": "https://build.nvidia.com/settings/api-keys",
+      "free": "free tier, no card"
+    },
+    {
+      "id": "openrouter",
+      "env": "OPENROUTER_API_KEY",
+      "label": "OpenRouter",
+      "url": "https://openrouter.ai/keys",
+      "free": "~50 requests/day on :free models, no card"
+    }
+  ],
+  "oauth": [
+    {
+      "id": "claude",
+      "label": "Claude subscription (Pro/Max)",
+      "tos": true
+    },
+    {
+      "id": "codex",
+      "label": "ChatGPT / OpenAI Codex subscription",
+      "tos": true
+    },
+    {
+      "id": "antigravity",
+      "label": "Google Antigravity",
+      "tos": true
+    },
+    {
+      "id": "agy",
+      "label": "Antigravity CLI",
+      "tos": true
+    },
+    {
+      "id": "github",
+      "label": "GitHub Copilot (device flow)",
+      "tos": true,
+      "note": "Only the gh/auto model works through the gateway, and it is flaky."
+    }
+  ]
+}

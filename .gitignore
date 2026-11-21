@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+kit-state.json
+*.bak*
+*.tmp.mjs
+.scan-selftest-*/
+dist/
+*.zip

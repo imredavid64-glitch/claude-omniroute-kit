@@ -1,0 +1,17 @@
+{
+  "_comment": "Merged INTO ~/.claude/settings.json (never replaces it; the original is backed up first). Placeholders are filled by the installer. Deliberately NOT included: permissions/bypassPermissions (opt-in via --bypass-permissions), theme, plugins, autoMode, and any machine-specific values.",
+  "env": {
+    "ANTHROPIC_BASE_URL": "{{BASE_URL}}",
+    "ANTHROPIC_AUTH_TOKEN": "{{GATEWAY_KEY}}",
+    "ANTHROPIC_MODEL": "{{MAIN_COMBO}}",
+    "ANTHROPIC_SMALL_FAST_MODEL": "{{FAST_COMBO}}",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "{{FAST_COMBO}}",
+    "CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1",
+    "CLAUDE_CODE_MAX_CONTEXT_TOKENS": "{{CONTEXT_TOKENS}}",
+    "CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT": "1"
+  },
+  "rtkHook": {
+    "matcher": "Bash",
+    "hooks": [{ "type": "command", "command": "rtk hook claude" }]
+  }
+}
