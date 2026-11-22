@@ -135,7 +135,7 @@ Verified on the author's Windows 11 machine, Node 24, OmniRoute 3.8.53, Claude C
 - `config/combos.json` matches the author's live gateway exactly (23 + 10 members).
 - `--dry-run` correctly detects an existing install and port conflict and refuses to touch them.
 
-**The `.exe` and `.pkg` builders are written and syntax-checked (the PowerShell scripts parse, the shell script passes `sh -n`) but neither installer has been built or launched yet.** The macOS one additionally needs a Mac to build.
+**Installers:** CI (`v1.0.0`) builds both. The Windows `.exe` was launched on the author's machine in `--dry-run` mode (both a local build and the CI-built release asset): it unpacks, finds Node, creates the Start-menu shortcuts and starts the installer. **The `.pkg` builds and is a valid package but has never been installed on a Mac**, and neither installer has done a real (non-dry-run) install on a clean machine.
 
 **Not yet exercised end to end:** a full fresh install against a clean OmniRoute (boot, key creation, provider adds, probes, combo create, compression PUT). Those steps call OmniRoute's dashboard API and CLI; their request shapes come from OmniRoute's docs and the author's earlier working sessions, and every step has a fallback (for example, if automatic key creation fails the installer asks you to paste a key from the dashboard). macOS/Linux autostart and install paths were written but never run. If a step fails, the error names it and `--only <step>` re-runs just that step.
 
