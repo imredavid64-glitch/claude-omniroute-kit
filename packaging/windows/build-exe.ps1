@@ -15,7 +15,8 @@ $src = Join-Path $stage 'src'
 New-Item -ItemType Directory -Force $src | Out-Null
 robocopy $kit $src /E /XD dist packaging .git node_modules /XF *.zip /NFL /NDL /NJH /NJS /NP | Out-Null
 if ($LASTEXITCODE -ge 8) { throw "robocopy failed ($LASTEXITCODE)" }
-& tar.exe -a -c -f (Join-Path $stage 'payload.zip') -C $src .
+# Use Windows' bsdtar explicitly: when launched from Git Bash, a bare "tar" can be GNU tar, which treats "C:" as a remote host.
+& (Join-Path $env:WINDIR 'System32\tar.exe') -a -c -f (Join-Path $stage 'payload.zip') -C $src .
 if ($LASTEXITCODE -ne 0) { throw 'tar failed' }
 Copy-Item (Join-Path $PSScriptRoot 'setup.cmd'), (Join-Path $PSScriptRoot 'setup.ps1') $stage
 
@@ -50,9 +51,9 @@ DisplayLicense=
 FinishMessage=
 TargetName=$exe
 FriendlyName=Claude OmniRoute Setup
-AppLaunched=cmd /c setup.cmd
-AdminQuietInstCmd=cmd /c setup.cmd
-UserQuietInstCmd=cmd /c setup.cmd
+AppLaunched=cmd /c .\setup.cmd
+AdminQuietInstCmd=cmd /c .\setup.cmd
+UserQuietInstCmd=cmd /c .\setup.cmd
 FILE0="setup.cmd"
 FILE1="setup.ps1"
 FILE2="payload.zip"
@@ -65,7 +66,9 @@ SourceFiles0=$stage\
 "@
 $sedPath = Join-Path $stage 'kit.sed'
 Set-Content -Path $sedPath -Value $sed -Encoding ASCII
-Start-Process -FilePath "$env:WINDIR\System32\iexpress.exe" -ArgumentList '/N', '/Q', "`"$sedPath`"" -Wait -NoNewWindow
+# IExpress is picky: run it from the staging dir with a relative SED name (an absolute quoted path silently produced no exe).
+$p = Start-Process -FilePath "$env:WINDIR\System32\iexpress.exe" -ArgumentList '/N', '/Q', 'kit.sed' -WorkingDirectory $stage -Wait -PassThru
+if ($p.ExitCode -ne 0) { throw "IExpress exited with $($p.ExitCode)" }
 for ($i = 0; $i -lt 60 -and -not (Test-Path $exe); $i++) { Start-Sleep -Milliseconds 500 }
 if (-not (Test-Path $exe)) { throw 'IExpress did not produce the exe.' }
 Copy-Item (Join-Path $stage 'payload.zip') (Join-Path $dist 'kit-payload.zip') -Force

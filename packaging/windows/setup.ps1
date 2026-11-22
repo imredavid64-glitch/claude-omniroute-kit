@@ -85,7 +85,8 @@ try {
 # 4) the actual setup ----------------------------------------------------------
 Write-Host "`n  Starting setup...`n" -ForegroundColor Cyan
 $kitArgs = @()
-if ($env:OMNIROUTE_KIT_ARGS) { $kitArgs = $env:OMNIROUTE_KIT_ARGS -split '\s+' | Where-Object { $_ } }
+# @(...) matters: a single argument would otherwise collapse to a plain string and be dropped when splatted.
+if ($env:OMNIROUTE_KIT_ARGS) { $kitArgs = @($env:OMNIROUTE_KIT_ARGS -split '\s+' | Where-Object { $_ }) }
 & node (Join-Path $app 'installer\install.mjs') @kitArgs
 $code = $LASTEXITCODE
 try { Stop-Transcript | Out-Null } catch {}
